@@ -10,9 +10,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 
 @Entity
 public class Reservation {
@@ -28,4 +30,10 @@ public class Reservation {
 
     @ManyToOne
     private HotelRoom hotelRoom;
+
+    public Reservation(ReservationCreationDTO reservationCreationDTO) {
+        this.guestName = reservationCreationDTO.guestName();
+        this.checkInDate = reservationCreationDTO.checkInDate();
+        this.checkOutDate = reservationCreationDTO.checkOutDate();
+    }
 }

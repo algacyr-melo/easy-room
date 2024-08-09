@@ -39,7 +39,7 @@ public class HotelRoomController {
     ) {
         HotelRoom hotelRoom = new HotelRoom(hotelRoomCreationDTO);
 
-        hotelRoomService.createHotelRoom(hotelRoom);
+        hotelRoomService.saveHotelRoom(hotelRoom);
 
         URI location = uriComponentsBuilder
             .path("/hotel-room/{id}")
@@ -53,7 +53,7 @@ public class HotelRoomController {
     @GetMapping
     public  ResponseEntity<List<HotelRoomReadDTO>> getHotelRooms() {
 
-        List<HotelRoom> hotelRooms = hotelRoomService.getAllHotelRooms();
+        List<HotelRoom> hotelRooms = hotelRoomService.findAllHotelRoom();
 
         List<HotelRoomReadDTO> hotelRoomsDTO = hotelRooms.stream()
             .map(HotelRoomReadDTO::new)
@@ -79,4 +79,6 @@ public class HotelRoomController {
         hotelRoom.update(hotelRoomUpdateDTO);
         return ResponseEntity.ok(new HotelRoomReadDTO(hotelRoom));
     }
+
+    // TODO: Delete mapping
 }

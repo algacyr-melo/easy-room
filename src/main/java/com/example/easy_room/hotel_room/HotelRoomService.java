@@ -10,13 +10,14 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 public class HotelRoomService {
+
     private final HotelRoomRepository hotelRoomRepository;
 
-    public HotelRoom createHotelRoom(HotelRoom hotelRoom) {
+    public HotelRoom saveHotelRoom(HotelRoom hotelRoom) {
         return hotelRoomRepository.save(hotelRoom);
     }
 
-    public List<HotelRoom> getAllHotelRooms() {
+    public List<HotelRoom> findAllHotelRoom() {
         return hotelRoomRepository.findAll();
     }
 

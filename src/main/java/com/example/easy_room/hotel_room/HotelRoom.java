@@ -27,4 +27,9 @@ public class HotelRoom {
         this.roomNumber = hotelRoomCreationDTO.roomNumber();
         this.available = true;
     }
+
+    public void update(HotelRoomUpdateDTO hotelRoomUpdateDTO) {
+        this.roomNumber = hotelRoomUpdateDTO.roomNumber();
+        this.available = hotelRoomUpdateDTO.available();
+    }
 }

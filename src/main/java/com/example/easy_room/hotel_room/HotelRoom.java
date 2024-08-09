@@ -1,5 +1,6 @@
 package com.example.easy_room.hotel_room;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +18,13 @@ public class HotelRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String roomNumber;
 
     private boolean available;
+
+    public HotelRoom(HotelRoomCreationDTO hotelRoomCreationDTO) {
+        this.roomNumber = hotelRoomCreationDTO.roomNumber();
+        this.available = true;
+    }
 }

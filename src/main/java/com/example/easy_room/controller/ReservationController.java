@@ -16,6 +16,7 @@ import com.example.easy_room.reservation.ReservationCreationDTO;
 import com.example.easy_room.reservation.ReservationService;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class ReservationController {
     @Transactional
     @PostMapping
     public ResponseEntity<ReservationCreationDTO> createReservation(
-        @RequestBody ReservationCreationDTO reservationCreationDTO,
+        @Valid @RequestBody ReservationCreationDTO reservationCreationDTO,
         UriComponentsBuilder uriComponentsBuilder
     ) {
         if (!reservationService.isReservationDateAvailable(reservationCreationDTO)) {

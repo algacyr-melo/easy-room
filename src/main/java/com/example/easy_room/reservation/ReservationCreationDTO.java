@@ -2,11 +2,13 @@ package com.example.easy_room.reservation;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotNull;
+
 public record ReservationCreationDTO(
-    String guestName,
-    LocalDate checkInDate,
-    LocalDate checkOutDate,
-    Long hotelRoomId
+    @NotNull String guestName,
+    @NotNull LocalDate checkInDate,
+    @NotNull LocalDate checkOutDate,
+    @NotNull Long hotelRoomId
 ) {
 
 }

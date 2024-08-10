@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 public record HotelRoomUpdateDTO(
     @NotNull Long id,
     @NotNull String roomNumber,
-    @NotNull Boolean available
+    @NotNull String roomType
 ) {
 
 }

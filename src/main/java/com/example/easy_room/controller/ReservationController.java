@@ -34,6 +34,9 @@ public class ReservationController {
         @RequestBody ReservationCreationDTO reservationCreationDTO,
         UriComponentsBuilder uriComponentsBuilder
     ) {
+        if (!reservationService.isReservationDateAvailable(reservationCreationDTO)) {
+            return ResponseEntity.badRequest().build();
+        }
 
         HotelRoom hotelRoom = hotelRoomService
             .getHotelRoomById(reservationCreationDTO.hotelRoomId());

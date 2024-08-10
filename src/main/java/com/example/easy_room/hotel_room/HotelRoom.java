@@ -23,15 +23,15 @@ public class HotelRoom {
     @Column(unique = true)
     private String roomNumber;
 
-    private boolean available;
+    private String roomType;
 
     public HotelRoom(HotelRoomCreationDTO hotelRoomCreationDTO) {
         this.roomNumber = hotelRoomCreationDTO.roomNumber();
-        this.available = true;
+        this.roomType = hotelRoomCreationDTO.roomType();
     }
 
     public void update(HotelRoomUpdateDTO hotelRoomUpdateDTO) {
         this.roomNumber = hotelRoomUpdateDTO.roomNumber();
-        this.available = hotelRoomUpdateDTO.available();
+        this.roomType = hotelRoomUpdateDTO.roomType();
     }
 }

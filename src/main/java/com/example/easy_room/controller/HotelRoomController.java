@@ -22,13 +22,15 @@ import com.example.easy_room.hotel_room.HotelRoomUpdateDTO;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 
 @RestController
 @RequestMapping("/hotel-room")
 public class HotelRoomController {
 
-    @Autowired
-    private HotelRoomService hotelRoomService;
+    private final HotelRoomService hotelRoomService;
 
     @Transactional
     @PostMapping

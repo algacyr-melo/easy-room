@@ -3,11 +3,11 @@ package com.example.easy_room.hotel_room;
 public record HotelRoomReadDTO(
     Long id,
     String roomNumber,
-    boolean available
+    String roomType
 ) {
 
     public HotelRoomReadDTO(HotelRoom hotelRoom) {
-        this(hotelRoom.getId(), hotelRoom.getRoomNumber(), hotelRoom.isAvailable());
+        this(hotelRoom.getId(), hotelRoom.getRoomNumber(), hotelRoom.getRoomType());
     }
 
 }

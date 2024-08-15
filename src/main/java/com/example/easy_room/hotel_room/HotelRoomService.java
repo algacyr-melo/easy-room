@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.easy_room.hotel_room.exceptions.HotelRoomNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -21,7 +23,8 @@ public class HotelRoomService {
         return hotelRoomRepository.findAll();
     }
 
-    public HotelRoom getHotelRoomById(Long id) {
-        return hotelRoomRepository.getReferenceById(id);
+    public HotelRoom findHotelRoomById(Long id) {
+        return hotelRoomRepository.findById(id)
+            .orElseThrow(() -> new HotelRoomNotFoundException(id));
     }
 }

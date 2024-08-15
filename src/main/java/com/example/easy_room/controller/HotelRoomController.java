@@ -3,7 +3,6 @@ package com.example.easy_room.controller;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +19,7 @@ import com.example.easy_room.hotel_room.HotelRoomReadDTO;
 import com.example.easy_room.hotel_room.HotelRoomService;
 import com.example.easy_room.hotel_room.HotelRoomUpdateDTO;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class HotelRoomController {
     @Transactional
     @PostMapping
     public ResponseEntity<HotelRoomCreationDTO> createHotelRoom(
-        @RequestBody
+        @Valid @RequestBody
         HotelRoomCreationDTO hotelRoomCreationDTO,
         UriComponentsBuilder uriComponentsBuilder
     ) {
@@ -66,8 +66,7 @@ public class HotelRoomController {
 
     @GetMapping("/{id}")
     public ResponseEntity<HotelRoomReadDTO> detailHotelRoom(@PathVariable Long id) {
-
-        HotelRoom hotelRoom = hotelRoomService.getHotelRoomById(id);
+        HotelRoom hotelRoom = hotelRoomService.findHotelRoomById(id);
         return ResponseEntity.ok(new HotelRoomReadDTO(hotelRoom));
     }
 
@@ -76,9 +75,9 @@ public class HotelRoomController {
     public ResponseEntity<HotelRoomReadDTO> updateHotelRoom(
         @Valid @RequestBody HotelRoomUpdateDTO hotelRoomUpdateDTO
     ) {
-        HotelRoom hotelRoom = hotelRoomService.getHotelRoomById(hotelRoomUpdateDTO.id());
-
+        HotelRoom hotelRoom = hotelRoomService.findHotelRoomById(hotelRoomUpdateDTO.id());
         hotelRoom.update(hotelRoomUpdateDTO);
+
         return ResponseEntity.ok(new HotelRoomReadDTO(hotelRoom));
     }
 

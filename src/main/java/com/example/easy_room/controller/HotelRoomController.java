@@ -19,7 +19,6 @@ import com.example.easy_room.hotel_room.HotelRoomReadDTO;
 import com.example.easy_room.hotel_room.HotelRoomService;
 import com.example.easy_room.hotel_room.HotelRoomUpdateDTO;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +31,7 @@ public class HotelRoomController {
 
     private final HotelRoomService hotelRoomService;
 
+    //TODO: Move the business logic to the service
     @Transactional
     @PostMapping
     public ResponseEntity<HotelRoomCreationDTO> createHotelRoom(

@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
-
     private final HotelRoomService hotelRoomService;
 
     public Reservation createReservation(ReservationCreationDTO reservationCreationDTO) {
@@ -24,8 +23,7 @@ public class ReservationService {
             throw new ReservationDateNotAvailableException(
                 reservationCreationDTO.hotelRoomId(),
                 reservationCreationDTO.checkInDate(),
-                reservationCreationDTO.checkOutDate()
-            );
+                reservationCreationDTO.checkOutDate());
         }
 
         HotelRoom hotelRoom = hotelRoomService
@@ -36,13 +34,13 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
+    // NOTE: Could return a list of JSON overlapping dates to give clear feedback to the user
     public boolean isReservationDateAvailable(ReservationCreationDTO reservationCreationDTO) {
         List<Reservation> reservationsOverlap = reservationRepository
             .findReservationOverlap(
                 reservationCreationDTO.hotelRoomId(),
                 reservationCreationDTO.checkInDate(),
-                reservationCreationDTO.checkOutDate()
-        );
+                reservationCreationDTO.checkOutDate());
         return reservationsOverlap.isEmpty();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.easy_room.reservation;
+package com.example.easy_room.reservation.dto;
 
 import java.time.LocalDate;
 

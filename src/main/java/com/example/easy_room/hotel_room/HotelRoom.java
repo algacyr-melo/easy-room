@@ -1,5 +1,8 @@
 package com.example.easy_room.hotel_room;
 
+import com.example.easy_room.hotel_room.dto.HotelRoomCreationDTO;
+import com.example.easy_room.hotel_room.dto.HotelRoomUpdateDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -2,6 +2,7 @@ package com.example.easy_room.reservation;
 import java.time.LocalDate;
 
 import com.example.easy_room.hotel_room.HotelRoom;
+import com.example.easy_room.reservation.dto.ReservationCreationDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

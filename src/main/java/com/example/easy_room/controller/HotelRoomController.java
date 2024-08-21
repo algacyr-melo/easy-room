@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.easy_room.hotel_room.HotelRoom;
-import com.example.easy_room.hotel_room.HotelRoomCreationDTO;
-import com.example.easy_room.hotel_room.HotelRoomReadDTO;
 import com.example.easy_room.hotel_room.HotelRoomService;
-import com.example.easy_room.hotel_room.HotelRoomUpdateDTO;
+import com.example.easy_room.hotel_room.dto.HotelRoomCreationDTO;
+import com.example.easy_room.hotel_room.dto.HotelRoomReadDTO;
+import com.example.easy_room.hotel_room.dto.HotelRoomUpdateDTO;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -31,7 +31,6 @@ public class HotelRoomController {
 
     private final HotelRoomService hotelRoomService;
 
-    //TODO: Move the business logic to the service
     @Transactional
     @PostMapping
     public ResponseEntity<HotelRoomCreationDTO> createHotelRoom(
@@ -51,7 +50,6 @@ public class HotelRoomController {
         return ResponseEntity.created(location).body(hotelRoomCreationDTO);
     }
 
-    // TODO: add pagination
     @GetMapping
     public  ResponseEntity<List<HotelRoomReadDTO>> getHotelRooms() {
 
@@ -81,5 +79,5 @@ public class HotelRoomController {
         return ResponseEntity.ok(new HotelRoomReadDTO(hotelRoom));
     }
 
-    // TODO: Delete mapping
+    // TODO: @DeleteMapping
 }

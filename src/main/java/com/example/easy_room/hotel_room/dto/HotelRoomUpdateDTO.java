@@ -1,4 +1,4 @@
-package com.example.easy_room.hotel_room;
+package com.example.easy_room.hotel_room.dto;
 
 import jakarta.validation.constraints.NotNull;
 

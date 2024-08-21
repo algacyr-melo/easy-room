@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.easy_room.hotel_room.HotelRoom;
 import com.example.easy_room.hotel_room.HotelRoomService;
 import com.example.easy_room.reservation.Reservation;
-import com.example.easy_room.reservation.ReservationCreationDTO;
 import com.example.easy_room.reservation.ReservationRepository;
 import com.example.easy_room.reservation.ReservationService;
+import com.example.easy_room.reservation.dto.ReservationCreationDTO;
 import com.example.easy_room.reservation.exceptions.ReservationDateNotAvailableException;
 
 @SpringBootTest
@@ -50,7 +50,7 @@ public class ReservationDateNotAvailableExceptionTest {
     void shouldThrowReservationDateNotAvailableException() {
         // Prepare a ReservationCreationDTO that will cause a date overlap
         ReservationCreationDTO reservationCreationDTO = new ReservationCreationDTO(
-            "Guest Name",
+            null,
             LocalDate.of(2024, 8, 22),
             LocalDate.of(2024, 8, 24),
             hotelRoom.getId());

@@ -15,11 +15,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
         "SELECT r FROM Reservation r " +
         "WHERE r.hotelRoom.id = :hotelRoomId " +
         "AND r.checkInDate <= :checkOutDate " +
-        "AND r.checkOutDate >= :checkInDate"
-    )
+        "AND r.checkOutDate >= :checkInDate")
     List<Reservation> findReservationOverlap(
         @Param("hotelRoomId") Long hotelRoomId,
         @Param("checkInDate") LocalDate checkInDate,
-        @Param("checkOutDate") LocalDate checkOutDate
-    );
+        @Param("checkOutDate") LocalDate checkOutDate);
+
+    boolean existsByHotelRoomId(Long hotelRoomId);
 }

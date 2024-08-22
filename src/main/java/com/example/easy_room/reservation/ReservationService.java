@@ -38,9 +38,8 @@ public class ReservationService {
                 reservationCreationDTO.checkOutDate());
             throw new ReservationDateNotAvailableException(message);
         }
-
         HotelRoom hotelRoom = hotelRoomService
-            .findHotelRoomById(reservationCreationDTO.hotelRoomId());
+            .getHotelRoomById(reservationCreationDTO.hotelRoomId());
 
         Reservation reservation = new Reservation(reservationCreationDTO);
         reservation.setHotelRoom(hotelRoom);
@@ -81,10 +80,10 @@ public class ReservationService {
                 "Check-in date cannot be in the past.");
         }
 
-        //if (ChronoUnit.DAYS.between(checkInDate, checkOutDate) < 1) {
-        //    throw new InvalidReservationDateException(
-        //        "Reservation must be at least one day");
-        //}
+        if (ChronoUnit.DAYS.between(checkInDate, checkOutDate) < 1) {
+            throw new InvalidReservationDateException(
+                "Reservation must be at least one day");
+        }
     }
 
     /* NOTE: Could return a list of JSON overlapping dates

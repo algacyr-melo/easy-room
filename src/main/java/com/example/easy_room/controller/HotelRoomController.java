@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,38 +34,32 @@ public class HotelRoomController {
 
     @Transactional
     @PostMapping
-    public ResponseEntity<HotelRoomCreationDTO> createHotelRoom(
+        public ResponseEntity<HotelRoomReadDTO> createHotelRoom(
         @Valid @RequestBody
         HotelRoomCreationDTO hotelRoomCreationDTO,
         UriComponentsBuilder uriComponentsBuilder
     ) {
-        HotelRoom hotelRoom = new HotelRoom(hotelRoomCreationDTO);
-
-        hotelRoomService.saveHotelRoom(hotelRoom);
+        HotelRoom hotelRoom = hotelRoomService.createHotelRoom(hotelRoomCreationDTO);
 
         URI location = uriComponentsBuilder
             .path("/hotel-room/{id}")
             .buildAndExpand(hotelRoom.getId())
             .toUri();
 
-        return ResponseEntity.created(location).body(hotelRoomCreationDTO);
+        return ResponseEntity.created(location).body(new HotelRoomReadDTO(hotelRoom));
     }
 
     @GetMapping
-    public  ResponseEntity<List<HotelRoomReadDTO>> getHotelRooms() {
+    public  ResponseEntity<List<HotelRoomReadDTO>> getHotelRoomList() {
+        List<HotelRoomReadDTO> hotelRoomList = hotelRoomService.getHotelRoomList();
 
-        List<HotelRoom> hotelRooms = hotelRoomService.findAllHotelRoom();
-
-        List<HotelRoomReadDTO> hotelRoomsDTO = hotelRooms.stream()
-            .map(HotelRoomReadDTO::new)
-            .toList();
-
-        return ResponseEntity.ok(hotelRoomsDTO);
+        return ResponseEntity.ok(hotelRoomList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<HotelRoomReadDTO> detailHotelRoom(@PathVariable Long id) {
-        HotelRoom hotelRoom = hotelRoomService.findHotelRoomById(id);
+        HotelRoom hotelRoom = hotelRoomService.getHotelRoomById(id);
+
         return ResponseEntity.ok(new HotelRoomReadDTO(hotelRoom));
     }
 
@@ -73,11 +68,18 @@ public class HotelRoomController {
     public ResponseEntity<HotelRoomReadDTO> updateHotelRoom(
         @Valid @RequestBody HotelRoomUpdateDTO hotelRoomUpdateDTO
     ) {
-        HotelRoom hotelRoom = hotelRoomService.findHotelRoomById(hotelRoomUpdateDTO.id());
-        hotelRoom.update(hotelRoomUpdateDTO);
+        HotelRoom hotelRoom = hotelRoomService.updateHotelRoom(hotelRoomUpdateDTO);
 
         return ResponseEntity.ok(new HotelRoomReadDTO(hotelRoom));
     }
 
-    // TODO: @DeleteMapping
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHotelRoom(@PathVariable Long id) {
+        if (!hotelRoomService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        hotelRoomService.deleteHotelRoom(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.easy_room.hotel_room.HotelRoom;
 import com.example.easy_room.hotel_room.HotelRoomService;
+import com.example.easy_room.hotel_room.dto.HotelRoomCreationDTO;
 import com.example.easy_room.reservation.Reservation;
 import com.example.easy_room.reservation.ReservationRepository;
 import com.example.easy_room.reservation.ReservationService;
@@ -34,9 +35,8 @@ public class ReservationDateNotAvailableExceptionTest {
     @BeforeEach
     void populateDB() {
         // Create and save a hotel room
-        hotelRoom = new HotelRoom();
-        hotelRoom.setRoomNumber("101");
-        hotelRoom = hotelRoomService.saveHotelRoom(hotelRoom);
+        HotelRoomCreationDTO hotelRoomCreationDTO = new HotelRoomCreationDTO("101", "SINGLE");
+        hotelRoom = hotelRoomService.createHotelRoom(hotelRoomCreationDTO);
 
         // Create and save a reservation that will overlap with the test reservation
         Reservation reservation = new Reservation();
@@ -50,7 +50,7 @@ public class ReservationDateNotAvailableExceptionTest {
     void shouldThrowReservationDateNotAvailableException() {
         // Prepare a ReservationCreationDTO that will cause a date overlap
         ReservationCreationDTO reservationCreationDTO = new ReservationCreationDTO(
-            null,
+            "John Doe",
             LocalDate.of(2024, 8, 22),
             LocalDate.of(2024, 8, 24),
             hotelRoom.getId());

@@ -7,9 +7,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.easy_room.reservation.exceptions.InvalidReservationDateException;
 import com.example.easy_room.reservation.exceptions.ReservationDateNotAvailableException;
+import com.example.easy_room.reservation.exceptions.ReservationNotFoundException;
 
 @RestControllerAdvice
 public class ReservationExceptionsHandler {
+
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> handleReservationNotFoundException(
+        ReservationNotFoundException e
+    ) {
+        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+            httpStatus.value(),
+            e.getMessage());
+
+        return ResponseEntity.status(httpStatus).body(errorResponse);
+    }
 
     @ExceptionHandler(ReservationDateNotAvailableException.class)
     public ResponseEntity<CustomErrorResponse> handleReservationDateNotAvailable(

@@ -16,10 +16,11 @@ public class HotelRoomNotFoundExceptionTest {
     private HotelRoomService hotelRoomService;
 
     @Test
-    void shouldThrowHotelRoomNotFoundException() {
+    void shouldThrowHotelRoomNotFoundExceptionForNonExistentId() {
 
         assertThrows(HotelRoomNotFoundException.class, () -> {
-            hotelRoomService.findHotelRoomById(1L);
+            hotelRoomService.getHotelRoomById(42L);
         });
+
     }
 }

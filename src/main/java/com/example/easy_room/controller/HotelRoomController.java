@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/hotel-room")
+@RequestMapping("/rooms")
 public class HotelRoomController {
 
     private final HotelRoomService hotelRoomService;

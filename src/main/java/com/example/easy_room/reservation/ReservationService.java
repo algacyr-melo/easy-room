@@ -13,6 +13,7 @@ import com.example.easy_room.hotel_room.HotelRoom;
 import com.example.easy_room.hotel_room.HotelRoomService;
 import com.example.easy_room.reservation.dto.ReservationCreationDTO;
 import com.example.easy_room.reservation.dto.ReservationReadDTO;
+import com.example.easy_room.reservation.dto.ReservationUpdateDTO;
 import com.example.easy_room.reservation.exceptions.InvalidReservationDateException;
 import com.example.easy_room.reservation.exceptions.ReservationDateNotAvailableException;
 import com.example.easy_room.reservation.exceptions.ReservationNotFoundException;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+
     private final HotelRoomService hotelRoomService;
 
     public Reservation createReservation(ReservationCreationDTO reservationCreationDTO) {
@@ -59,6 +61,29 @@ public class ReservationService {
             throw new ReservationNotFoundException(message);
         }
         return new ReservationReadDTO(reservation.get());
+    }
+
+    public Reservation updateReservation(
+        ReservationUpdateDTO reservationUpdateDTO
+    ) {
+        Optional<Reservation> reservation = reservationRepository.findById(reservationUpdateDTO.id());
+
+        if (reservation.isEmpty()) {
+            String message = String.format(
+                "Could not update Reservation with id: %d.",
+                reservationUpdateDTO.id());
+            throw new ReservationNotFoundException(message);
+        }
+        reservation.get().update(reservationUpdateDTO);
+        return reservation.get();
+    }
+
+    public void deleteReservation(Long id) {
+        reservationRepository.deleteById(id);
+    }
+
+    public boolean existsById(Long id) {
+        return reservationRepository.existsById(id);
     }
 
     /**

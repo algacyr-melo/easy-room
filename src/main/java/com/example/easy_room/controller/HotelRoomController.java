@@ -81,5 +81,4 @@ public class HotelRoomController {
         hotelRoomService.deleteHotelRoom(id);
         return ResponseEntity.noContent().build();
     }
-
 }

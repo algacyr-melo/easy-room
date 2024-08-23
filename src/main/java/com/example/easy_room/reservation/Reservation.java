@@ -3,6 +3,7 @@ import java.time.LocalDate;
 
 import com.example.easy_room.hotel_room.HotelRoom;
 import com.example.easy_room.reservation.dto.ReservationCreationDTO;
+import com.example.easy_room.reservation.dto.ReservationUpdateDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,5 +37,9 @@ public class Reservation {
         this.guestName = reservationCreationDTO.guestName();
         this.checkInDate = reservationCreationDTO.checkInDate();
         this.checkOutDate = reservationCreationDTO.checkOutDate();
+    }
+
+    public void update(ReservationUpdateDTO reservationUpdateDTO) {
+        this.guestName = reservationUpdateDTO.guestName();
     }
 }

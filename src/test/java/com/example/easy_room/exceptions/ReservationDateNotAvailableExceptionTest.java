@@ -41,8 +41,11 @@ public class ReservationDateNotAvailableExceptionTest {
         // Create and save a reservation that will overlap with the test reservation
         Reservation reservation = new Reservation();
         reservation.setHotelRoom(hotelRoom);
-        reservation.setCheckInDate(LocalDate.of(2024, 8, 20));
-        reservation.setCheckOutDate(LocalDate.of(2024, 8, 25));
+
+        // Should keep dates in the future so it does not throw
+        // the validation exception before
+        reservation.setCheckInDate(LocalDate.of(2025, 8, 20));
+        reservation.setCheckOutDate(LocalDate.of(2025, 8, 25));
         reservationRepository.save(reservation);
     }
 
@@ -51,8 +54,8 @@ public class ReservationDateNotAvailableExceptionTest {
         // Prepare a ReservationCreationDTO that will cause a date overlap
         ReservationCreationDTO reservationCreationDTO = new ReservationCreationDTO(
             "John Doe",
-            LocalDate.of(2024, 8, 22),
-            LocalDate.of(2024, 8, 24),
+            LocalDate.of(2025, 8, 22),
+            LocalDate.of(2025, 8, 24),
             hotelRoom.getId());
 
         assertThrows(ReservationDateNotAvailableException.class, () -> {
